@@ -1,7 +1,9 @@
 // script.js
-// Renders the feature form from metadata, calls the /predict API on the same origin,
+// Renders the feature form from metadata, calls the /predict API on the Render backend,
 // and displays the verdict. Value directions (-1 = phishing signal, 0 = suspicious,
 // 1 = legitimate signal) follow the documented encoding of the UCI Phishing Websites dataset.
+
+const API_BASE_URL = "https://phishing-detection-api2.onrender.com";
 
 const FEATURE_GROUPS = [
   {
@@ -138,7 +140,7 @@ function showState(state) {
 async function runPrediction(values) {
   showState(resultLoading);
   try {
-    const response = await fetch("/predict", {
+    const response = await fetch(`${API_BASE_URL}/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
