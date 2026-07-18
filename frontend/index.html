@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PhishGuard AI — Phishing Website Detector</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">🛡️</span>
+      <span class="brand-name">PhishGuard <span class="accent">AI</span></span>
+    </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
+      <span id="theme-icon" aria-hidden="true">☾</span>
+    </button>
+  </header>
+
+  <main class="page">
+    <p class="intro">
+      Enter the structural characteristics of a website's URL and page below, and this tool
+      will estimate whether it looks like a <strong>phishing</strong> site or a
+      <strong>legitimate</strong> one. It uses a gradient-boosted model trained on 30 structural
+      features from the UCI Phishing Websites dataset — not a live crawl of the URL.
+    </p>
+
+    <div class="layout">
+      <section class="panel form-panel">
+        <div class="panel-header">
+          <h2>Analyze a website</h2>
+          <div class="example-buttons">
+            <button type="button" class="btn btn-ghost" data-example="phishing">Load phishing example</button>
+            <button type="button" class="btn btn-ghost" data-example="legit">Load legitimate example</button>
+          </div>
+        </div>
+
+        <form id="predict-form">
+          <div id="feature-groups"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="analyze-btn">Run PhishGuard Analysis</button>
+            <button type="button" class="btn btn-ghost" id="clear-btn">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel result-panel">
+        <h2>Result</h2>
+        <div id="result-idle" class="result-state">
+          <span class="status-dot"></span>
+          <p>Waiting for input — fill in the form and run an analysis.</p>
+        </div>
+
+        <div id="result-loading" class="result-state hidden">
+          <span class="spinner" aria-hidden="true"></span>
+          <p>Analyzing…</p>
+        </div>
+
+        <div id="result-error" class="result-state hidden">
+          <p class="error-text"></p>
+        </div>
+
+        <div id="result-content" class="hidden">
+          <div id="verdict-badge" class="verdict-badge">
+            <span id="verdict-icon" class="verdict-icon"></span>
+            <span id="verdict-text"></span>
+          </div>
+
+          <div class="prob-row">
+            <span>Phishing probability</span>
+            <span id="phishing-prob-value"></span>
+          </div>
+          <div class="prob-bar">
+            <div id="phishing-prob-fill" class="prob-fill"></div>
+          </div>
+
+          <div class="prob-row">
+            <span>Legitimate probability</span>
+            <span id="legit-prob-value"></span>
+          </div>
+
+          <p class="model-line">Model: <span id="model-name"></span></p>
+        </div>
+
+        <p class="disclaimer">
+          ⚠️ This is a student capstone project, not a certified security tool. Do not use it as
+          the sole basis for trusting or blocking a real website — always verify suspicious links
+          through your browser's built-in protections or a dedicated security service.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Phishing Website Detection API — final ML project, trained on the UCI Phishing Websites dataset.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
